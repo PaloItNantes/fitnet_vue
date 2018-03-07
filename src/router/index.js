@@ -11,6 +11,11 @@ export default new Router({
             path: '/',
             name: 'Hello',
             component: Hello
+        },
+        {
+            path: '/mission',
+            name: 'Mission',
+            component: Mission
         }
         // {
         //   path: '/notification',

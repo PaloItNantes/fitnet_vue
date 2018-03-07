@@ -1,17 +1,17 @@
 <template>
 <div>
-      <h1>Missions</h1>
       <div class="content-grid mdl-grid">
-      <table class="mdl-data-table mdl-js-data-table mdl-data-table-mdl-shadow--2dp">
-          <thead>
-              <th>ID</th>
-          </thead>
-          <tbody>
-              <tr v-for="mission in missions" :key="mission.lotId">
-                  <td>{{mission.lotId}}</td>
-              </tr>
-          </tbody>
-      </table>
+          <div class="mdl-cell mdl-card mdl-shadow--2dp" v-for="mission in missions" :key="mission.lotId">
+            <div class="mdl-card__title">
+                <h4>
+                    <div class="mdl-card__title-text">{{mission.title}}</div>
+                    <div class="mdl-card__subtitle-text">Du {{mission.beginDate}} au {{mission.endDate}}</div>
+                </h4>
+            </div>
+            <div class="mdl-card__supporting-text">
+                {{mission.description !== null ? mission.description.trim() : 'Aucune description disponible.'}}
+            </div>
+        </div>
   </div>
   </div>
 </template>
@@ -19,6 +19,7 @@
 <script>
 import missionService from "@/services/mission.service";
 import axios from "axios";
+import _ from 'lodash';
 
 export default {
   data() {
@@ -27,402 +28,35 @@ export default {
     };
   },
   mounted() {
-    var self = this;
-    axios.get('https://evaluation.fitnetmanager.com/FitnetManager/rest/contracts/1', {
-            headers: {
-            //"Access-Control-Allow-Credentials":"true",
-            "Access-Control-Allow-Methods":"POST, GET, OPTIONS, DELETE",
-            "Access-Control-Allow-Headers":"Content-Type, Accept, X-Requested-With, remember-me",
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': 'Basic ' + btoa('fbaillargeau@palo-it.com' + ":" + 'vhT739!HFe')
-            }
-        })
-        .then(response => {
-            console.log(response);
-            this.missions = response.data;
-        })
-        .catch(e => {
-            console.log(e);
-            this.errors.push(e)
-        })
-    // this.missions = [
-    //   {
-    //     lotId: 258,
-    //     businessUnitName: null,
-    //     company: null,
-    //     customerName: null,
-    //     customerSector: null,
-    //     customerSegment: null,
-    //     contractCategory: null,
-    //     tenantID: null,
-    //     contractAmount: null,
-    //     remoteId: null,
-    //     title: "TEST",
-    //     deliveryAmount: "400000.0",
-    //     upperLimit: "0",
-    //     beginDate: "02/01/2018",
-    //     endDate: "30/11/2018",
-    //     billingDate: "30/11/2018",
-    //     companyId: 1,
-    //     businessUnit: null,
-    //     customerId: 8,
-    //     contactCustomerId: null,
-    //     projectId: 13,
-    //     description: null,
-    //     status: 0,
-    //     statusName: "Opportunity",
-    //     dateDeCreation: null,
-    //     billingMode: 2,
-    //     billingModeName: "Flat-price contract",
-    //     commercialStatusID: 0,
-    //     commercialStatusLevel: null
-    //   },
-    //   {
-    //     lotId: 259,
-    //     businessUnitName: null,
-    //     company: null,
-    //     customerName: null,
-    //     customerSector: null,
-    //     customerSegment: null,
-    //     contractCategory: null,
-    //     tenantID: null,
-    //     contractAmount: null,
-    //     remoteId: null,
-    //     title: "MY FUND INVESTORS",
-    //     deliveryAmount: "270700.0",
-    //     upperLimit: "0",
-    //     beginDate: "22/01/2018",
-    //     endDate: "30/06/2018",
-    //     billingDate: "30/06/2018",
-    //     companyId: 1,
-    //     businessUnit: null,
-    //     customerId: 28,
-    //     contactCustomerId: null,
-    //     projectId: 0,
-    //     description: null,
-    //     status: 1,
-    //     statusName: "In-progress",
-    //     dateDeCreation: null,
-    //     billingMode: 2,
-    //     billingModeName: "Flat-price contract",
-    //     commercialStatusID: 5,
-    //     commercialStatusLevel: 100
-    //   },
-    //   {
-    //     lotId: 225,
-    //     businessUnitName: null,
-    //     company: null,
-    //     customerName: null,
-    //     customerSector: null,
-    //     customerSegment: null,
-    //     contractCategory: null,
-    //     tenantID: null,
-    //     contractAmount: null,
-    //     remoteId: null,
-    //     title: "GESTION DE VERSION",
-    //     deliveryAmount: "100000.0",
-    //     upperLimit: "0",
-    //     beginDate: "01/11/2017",
-    //     endDate: "31/01/2018",
-    //     billingDate: "31/01/2018",
-    //     companyId: 1,
-    //     businessUnit: 1,
-    //     customerId: 17,
-    //     contactCustomerId: null,
-    //     projectId: 0,
-    //     description: null,
-    //     status: 1,
-    //     statusName: "In-progress",
-    //     dateDeCreation: null,
-    //     billingMode: 2,
-    //     billingModeName: "Flat-price contract",
-    //     commercialStatusID: 5,
-    //     commercialStatusLevel: 100
-    //   },
-    //   {
-    //     lotId: 239,
-    //     businessUnitName: null,
-    //     company: null,
-    //     customerName: null,
-    //     customerSector: null,
-    //     customerSegment: null,
-    //     contractCategory: null,
-    //     tenantID: null,
-    //     contractAmount: null,
-    //     remoteId: null,
-    //     title: "test",
-    //     deliveryAmount: "82600.0",
-    //     upperLimit: "0",
-    //     beginDate: "01/11/2017",
-    //     endDate: "31/12/2018",
-    //     billingDate: null,
-    //     companyId: 1,
-    //     businessUnit: null,
-    //     customerId: 26,
-    //     contactCustomerId: null,
-    //     projectId: 0,
-    //     description: null,
-    //     status: 1,
-    //     statusName: "In-progress",
-    //     dateDeCreation: null,
-    //     billingMode: 0,
-    //     billingModeName: "Daily price contract",
-    //     commercialStatusID: 5,
-    //     commercialStatusLevel: 100
-    //   },
-    //   {
-    //     lotId: 263,
-    //     businessUnitName: null,
-    //     company: null,
-    //     customerName: null,
-    //     customerSector: null,
-    //     customerSegment: null,
-    //     contractCategory: null,
-    //     tenantID: null,
-    //     contractAmount: null,
-    //     remoteId: null,
-    //     title: "DEV JAVA",
-    //     deliveryAmount: "70000.0",
-    //     upperLimit: "0",
-    //     beginDate: "12/03/2018",
-    //     endDate: "30/06/2018",
-    //     billingDate: "30/06/2018",
-    //     companyId: 1,
-    //     businessUnit: null,
-    //     customerId: 25,
-    //     contactCustomerId: null,
-    //     projectId: 0,
-    //     description: null,
-    //     status: 0,
-    //     statusName: "Opportunity",
-    //     dateDeCreation: null,
-    //     billingMode: 0,
-    //     billingModeName: "Daily price contract",
-    //     commercialStatusID: 3,
-    //     commercialStatusLevel: 50
-    //   },
-    //   {
-    //     lotId: 264,
-    //     businessUnitName: null,
-    //     company: null,
-    //     customerName: null,
-    //     customerSector: null,
-    //     customerSegment: null,
-    //     contractCategory: null,
-    //     tenantID: null,
-    //     contractAmount: null,
-    //     remoteId: null,
-    //     title: "Toto",
-    //     deliveryAmount: "0.0",
-    //     upperLimit: "0",
-    //     beginDate: "28/02/2018",
-    //     endDate: "13/02/2019",
-    //     billingDate: null,
-    //     companyId: 1,
-    //     businessUnit: 1,
-    //     customerId: 31,
-    //     contactCustomerId: null,
-    //     projectId: 0,
-    //     description: null,
-    //     status: 1,
-    //     statusName: "In-progress",
-    //     dateDeCreation: null,
-    //     billingMode: 0,
-    //     billingModeName: "Daily price contract",
-    //     commercialStatusID: 5,
-    //     commercialStatusLevel: 100
-    //   },
-    //   {
-    //     lotId: 215,
-    //     businessUnitName: null,
-    //     company: null,
-    //     customerName: null,
-    //     customerSector: null,
-    //     customerSegment: null,
-    //     contractCategory: null,
-    //     tenantID: null,
-    //     contractAmount: null,
-    //     remoteId: null,
-    //     title: "DESIGN THINKING",
-    //     deliveryAmount: "241000.0",
-    //     upperLimit: "0",
-    //     beginDate: "03/10/2017",
-    //     endDate: "26/04/2018",
-    //     billingDate: "28/02/2018",
-    //     companyId: 1,
-    //     businessUnit: 1,
-    //     customerId: 18,
-    //     contactCustomerId: null,
-    //     projectId: 0,
-    //     description: null,
-    //     status: 1,
-    //     statusName: "In-progress",
-    //     dateDeCreation: null,
-    //     billingMode: 2,
-    //     billingModeName: "Flat-price contract",
-    //     commercialStatusID: 5,
-    //     commercialStatusLevel: 100
-    //   },
-    //   {
-    //     lotId: 232,
-    //     businessUnitName: null,
-    //     company: null,
-    //     customerName: null,
-    //     customerSector: null,
-    //     customerSegment: null,
-    //     contractCategory: null,
-    //     tenantID: null,
-    //     contractAmount: null,
-    //     remoteId: null,
-    //     title: "TEST",
-    //     deliveryAmount: "300000.0",
-    //     upperLimit: "0",
-    //     beginDate: "02/10/2017",
-    //     endDate: "31/03/2018",
-    //     billingDate: "31/03/2018",
-    //     companyId: 1,
-    //     businessUnit: null,
-    //     customerId: 17,
-    //     contactCustomerId: null,
-    //     projectId: 0,
-    //     description: null,
-    //     status: 1,
-    //     statusName: "In-progress",
-    //     dateDeCreation: null,
-    //     billingMode: 2,
-    //     billingModeName: "Flat-price contract",
-    //     commercialStatusID: 5,
-    //     commercialStatusLevel: 100
-    //   },
-    //   {
-    //     lotId: 216,
-    //     businessUnitName: null,
-    //     company: null,
-    //     customerName: null,
-    //     customerSector: null,
-    //     customerSegment: null,
-    //     contractCategory: null,
-    //     tenantID: null,
-    //     contractAmount: null,
-    //     remoteId: null,
-    //     title: "TEST",
-    //     deliveryAmount: "5000.0",
-    //     upperLimit: "0",
-    //     beginDate: "01/12/2017",
-    //     endDate: "31/12/2017",
-    //     billingDate: "31/12/2017",
-    //     companyId: 1,
-    //     businessUnit: null,
-    //     customerId: 8,
-    //     contactCustomerId: null,
-    //     projectId: 10,
-    //     description: null,
-    //     status: 2,
-    //     statusName: "Closed",
-    //     dateDeCreation: null,
-    //     billingMode: 0,
-    //     billingModeName: "Daily price contract",
-    //     commercialStatusID: 5,
-    //     commercialStatusLevel: 100
-    //   },
-    //   {
-    //     lotId: 233,
-    //     businessUnitName: null,
-    //     company: null,
-    //     customerName: null,
-    //     customerSector: null,
-    //     customerSegment: null,
-    //     contractCategory: null,
-    //     tenantID: null,
-    //     contractAmount: null,
-    //     remoteId: null,
-    //     title: "FORMS TEST",
-    //     deliveryAmount: "300000.0",
-    //     upperLimit: "0",
-    //     beginDate: "01/11/2017",
-    //     endDate: "30/06/2018",
-    //     billingDate: "30/06/2018",
-    //     companyId: 1,
-    //     businessUnit: null,
-    //     customerId: 7,
-    //     contactCustomerId: null,
-    //     projectId: 0,
-    //     description: null,
-    //     status: 1,
-    //     statusName: "In-progress",
-    //     dateDeCreation: null,
-    //     billingMode: 2,
-    //     billingModeName: "Flat-price contract",
-    //     commercialStatusID: 5,
-    //     commercialStatusLevel: 100
-    //   },
-    //   {
-    //     lotId: 265,
-    //     businessUnitName: null,
-    //     company: null,
-    //     customerName: null,
-    //     customerSector: null,
-    //     customerSegment: null,
-    //     contractCategory: null,
-    //     tenantID: null,
-    //     contractAmount: null,
-    //     remoteId: null,
-    //     title: "Test Flavien",
-    //     deliveryAmount: "0.0",
-    //     upperLimit: "0",
-    //     beginDate: "01/03/2018",
-    //     endDate: "01/03/2018",
-    //     billingDate: "01/03/2018",
-    //     companyId: 1,
-    //     businessUnit: null,
-    //     customerId: 8,
-    //     contactCustomerId: null,
-    //     projectId: 0,
-    //     description: null,
-    //     status: 0,
-    //     statusName: "Opportunity",
-    //     dateDeCreation: null,
-    //     billingMode: 2,
-    //     billingModeName: "Flat-price contract",
-    //     commercialStatusID: 0,
-    //     commercialStatusLevel: null
-    //   },
-    //   {
-    //     lotId: 220,
-    //     businessUnitName: null,
-    //     company: null,
-    //     customerName: null,
-    //     customerSector: null,
-    //     customerSegment: null,
-    //     contractCategory: null,
-    //     tenantID: null,
-    //     contractAmount: null,
-    //     remoteId: null,
-    //     title: "API GATEWAY",
-    //     deliveryAmount: "245490.0",
-    //     upperLimit: "0",
-    //     beginDate: "01/12/2017",
-    //     endDate: "30/06/2018",
-    //     billingDate: "31/12/2017",
-    //     companyId: 1,
-    //     businessUnit: 1,
-    //     customerId: 9,
-    //     contactCustomerId: null,
-    //     projectId: 11,
-    //     description: null,
-    //     status: 1,
-    //     statusName: "In-progress",
-    //     dateDeCreation: null,
-    //     billingMode: 2,
-    //     billingModeName: "Flat-price contract",
-    //     commercialStatusID: 5,
-    //     commercialStatusLevel: 100
-    //   }
-    // ];
+    this.getMissions();
+  },
+  methods: {
+    getMissions: function() {
+    axios.get('api/FitnetManager/rest/contracts/1', {
+        headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "Authorization": "Basic ZmJhaWxsYXJnZWF1QHBhbG8taXQuY29tOnZoVDczOSFIRmU="
+        }
+    })
+    .then(response => {
+        console.log(response);
+        this.missions = _.orderBy(response.data, ['lotId'], ['desc']);
+    })
+    .catch(e => {
+        console.log(e);
+        this.errors.push(e)
+    })
+    }
   }
 };
 </script>
 
 <style>
+    .mdl-card__title, .mdl-card__supporting-text{
+        padding: 0px 16px;
+    }
 
+    .mdl-card__subtitle-text {
+        text-align: left;
+    }
 </style>

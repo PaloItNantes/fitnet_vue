@@ -9,8 +9,8 @@
       <span class="mdl-layout-title">Fitnet Vue</span>
       <nav class="mdl-navigation">
         <router-link class="mdl-navigation__link" to="/" @click.native="hideMenu">Accueil</router-link>
-        <!-- <router-link class="mdl-navigation__link" to="notification" @click.native="hideMenu">Notification</router-link>
-        <router-link class="mdl-navigation__link" to="mission" @click.native="hideMenu">Missions</router-link> -->
+        <router-link class="mdl-navigation__link" to="mission" @click.native="hideMenu">Mission</router-link>
+        <!-- <router-link class="mdl-navigation__link" to="mission" @click.native="hideMenu">Missions</router-link> -->
       </nav>
     </div>
     <main class="mdl-layout__content">
