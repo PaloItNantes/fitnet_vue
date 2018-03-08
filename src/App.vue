@@ -9,7 +9,7 @@
       <span class="mdl-layout-title">Fitnet Vue</span>
       <nav class="mdl-navigation">
         <router-link class="mdl-navigation__link" to="/" @click.native="hideMenu">Accueil</router-link>
-        <router-link class="mdl-navigation__link" to="mission" @click.native="hideMenu">Mission</router-link>
+        <router-link class="mdl-navigation__link" to="mission_list" @click.native="hideMenu">Mission</router-link>
         <!-- <router-link class="mdl-navigation__link" to="mission" @click.native="hideMenu">Missions</router-link> -->
       </nav>
     </div>
@@ -49,8 +49,7 @@ body {
 }
 
 main {
-  text-align: center;
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 header {
@@ -60,15 +59,4 @@ header {
   background-color: #35495E;
   color: #ffffff;
 }
-
-/* header span {
-  display: block;
-  position: relative;
-  font-size: 20px;
-  line-height: 1;
-  letter-spacing: .02em;
-  font-weight: 400;
-  box-sizing: border-box;
-  padding-top: 16px;
-} */
 </style>
