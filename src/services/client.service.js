@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default {
-    getClient: function() {
+    getClient: function(idClient) {
         return axios.get('api/FitnetManager/rest/customers/read/' + idClient, {
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",

@@ -1,8 +1,8 @@
 import axios from "axios";
 
 export default {
-    getMissions: function() {
-        return axios.get('api/FitnetManager/rest/contracts/1', {
+    getFacturations: function() {
+        return axios.get('api/FitnetManager/rest/billingMode', {
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                     "Authorization": "Basic ZmJhaWxsYXJnZWF1QHBhbG8taXQuY29tOnZoVDczOSFIRmU="
