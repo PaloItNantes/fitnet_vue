@@ -1,7 +1,7 @@
 <template>
 <div>
       <div class="content-grid mdl-grid">
-          <div class="mdl-cell mdl-card mdl-shadow--2dp" v-for="mission in missions" :key="mission.lotId">
+          <div class="mdl-cell mdl-card mdl-shadow--2dp" v-on:click="goToMission(mission.lotId)" v-for="mission in missions" :key="mission.lotId">
             <div class="mdl-card__title">
                 <h4>
                     <div class="mdl-card__title-text">{{mission.title}}</div>
@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import missionService from "@/services/mission.service";
 import axios from "axios";
 import _ from 'lodash';
 
@@ -32,21 +31,26 @@ export default {
   },
   methods: {
     getMissions: function() {
-    axios.get('api/FitnetManager/rest/contracts/1', {
-        headers: {
-            "Content-Type": "application/json; charset=utf-8",
-            "Authorization": "Basic ZmJhaWxsYXJnZWF1QHBhbG8taXQuY29tOnZoVDczOSFIRmU="
-        }
-    })
-    .then(response => {
-        console.log(response);
-        this.missions = _.orderBy(response.data, ['lotId'], ['desc']);
-    })
-    .catch(e => {
-        console.log(e);
-        this.errors.push(e)
-    })
+        axios.get('api/FitnetManager/rest/contracts/1', {
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+                "Authorization": "Basic ZmJhaWxsYXJnZWF1QHBhbG8taXQuY29tOnZoVDczOSFIRmU="
+            }
+        })
+        .then(response => {
+            console.log(response);
+            this.missions = _.orderBy(response.data, ['lotId'], ['desc']);
+        })
+        .catch(e => {
+            console.log(e);
+            this.errors.push(e)
+        })
+    },
+
+    goToMission: function(id){
+        this.$router.push('/');
     }
+
   }
 };
 </script>
@@ -58,5 +62,9 @@ export default {
 
     .mdl-card__subtitle-text {
         text-align: left;
+    }
+
+    .mdl-card {
+        cursor: pointer;
     }
 </style>

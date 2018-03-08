@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Hello from '@/components/Hello'
-import Notification from '@/components/Notification'
-import Mission from '@/components/Mission'
+import MissionList from '@/components/MissionList'
 
 Vue.use(Router)
 
@@ -14,18 +13,8 @@ export default new Router({
         },
         {
             path: '/mission',
-            name: 'Mission',
-            component: Mission
+            name: 'Mission List',
+            component: MissionList
         }
-        // {
-        //   path: '/notification',
-        //   name: 'Notification',
-        //   component: Notification
-        // },
-        // {
-        //   path: '/mission',
-        //   name: 'Mission',
-        //   component: Mission
-        // },
     ]
 })
