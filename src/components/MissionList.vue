@@ -9,7 +9,7 @@
                 </h4>
             </div>
             <div class="mdl-card__supporting-text">
-                {{mission.description !== null ? mission.description.trim() : 'Aucune description disponible.'}}
+                {{mission.description !== null ? mission.description : 'Aucune description disponible.'}}
             </div>
         </div>
   </div>
@@ -50,10 +50,6 @@ export default {
 <style>
     .mdl-card__title, .mdl-card__supporting-text{
         padding: 0px 16px;
-    }
-
-    .mdl-card__subtitle-text {
-        text-align: left;
     }
 
     .mdl-card {
