@@ -1,43 +1,42 @@
 <template>
-    <div v-if="mission">
-        <h2 class="mdl-typography--text-left">{{mission.title}}</h2>
-        <div class="md-layout md-gutter">
-            <div class="md-layout-item md-size-50 md-xsmall-size-100">
-                <label><b>Client</b></label>
-                <span>{{client.name}}</span>
-            </div>
-            <div class="md-layout-item md-size-50 md-xsmall-size-100">
-                <label><b>Description</b></label>
-                <span>{{mission.description}}</span>
-            </div>
-            </div>
-            <div class="md-layout md-gutter">
-            <div class="md-layout-item md-size-50 md-xsmall-size-100">
-                <label><b>Date de début</b></label>
-                <span>{{mission.beginDate}}</span>
-            </div>
-            <div class="md-layout-item md-size-50 md-xsmall-size-100">
-                <label><b>Date de fin</b></label>
-                <span>{{mission.endDate}}</span>
-            </div>
-            </div>
-            <div class="md-layout md-gutter">
-            <div class="md-layout-item md-size-50 md-xsmall-size-100">
-                <label><b>Statut</b></label>
-                <span>{{statut}}</span>
-            </div>
-            <div class="md-layout-item md-size-50 md-xsmall-size-100">
-                <label><b>Facturation</b></label>
-                <span>{{facturation}}</span>
-            </div>
-            </div>
-            <div class="md-layout md-gutter md-alignment-right-center">
-                <md-button v-on:click="sePositionner" class="md-primary">
-                    Se positionner
-                </md-button>
-              </div>
-            </div>
-        </div>
+<div v-if="mission">
+   <h2 class="mdl-typography--text-left">{{mission.title}}</h2>
+   <div class="md-layout md-gutter">
+      <div class="md-layout-item md-size-50 md-xsmall-size-100">
+         <label><b>Client</b></label>
+         <span>{{client.name}}</span>
+      </div>
+      <div class="md-layout-item md-size-50 md-xsmall-size-100">
+         <label><b>Description</b></label>
+         <span>{{mission.description}}</span>
+      </div>
+   </div>
+   <div class="md-layout md-gutter">
+      <div class="md-layout-item md-size-50 md-xsmall-size-100">
+         <label><b>Date de début</b></label>
+         <span>{{mission.beginDate}}</span>
+      </div>
+      <div class="md-layout-item md-size-50 md-xsmall-size-100">
+         <label><b>Date de fin</b></label>
+         <span>{{mission.endDate}}</span>
+      </div>
+   </div>
+   <div class="md-layout md-gutter">
+      <div class="md-layout-item md-size-50 md-xsmall-size-100">
+         <label><b>Statut</b></label>
+         <span>{{statut}}</span>
+      </div>
+      <div class="md-layout-item md-size-50 md-xsmall-size-100">
+         <label><b>Facturation</b></label>
+         <span>{{facturation}}</span>
+      </div>
+   </div>
+   <div class="md-layout md-gutter md-alignment-right-center">
+      <md-button v-on:click="sePositionner" class="md-primary">
+         Se positionner
+      </md-button>
+   </div>
+</div>
 </template>
 
 <script>
@@ -82,12 +81,14 @@ export default {
     getFacturation: function() {
       facturationService.getFacturations().then(response => {
         var type_facturation = this.mission.billingMode;
-        var facturation = _.find(response.data, { billingModeCode: type_facturation });
+        var facturation = _.find(response.data, {
+          billingModeCode: type_facturation
+        });
         this.facturation = facturation.nameFR;
       });
     },
-    sePositionner: function(){
-        console.log("OK");
+    sePositionner: function() {
+      console.log("OK");
     }
   }
 };
@@ -99,8 +100,8 @@ label:after {
   white-space: pre;
 }
 
-h2{
-    margin-left: 10px;
+h2 {
+  margin-left: 10px;
 }
 
 .md-layout-item {

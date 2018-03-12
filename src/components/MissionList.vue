@@ -1,16 +1,15 @@
 <template>
- <div class="content">
-          <md-card class="pointer md-layout-item md-card" @click.native="goToMission(mission)" v-for="mission in missions" :key="mission.lotId">
+<div class="content">
+   <md-card class="pointer md-layout-item md-card" @click.native="goToMission(mission)" v-for="mission in missions" :key="mission.lotId">
       <md-card-header>
-        <div class="md-title black">{{mission.title}}</div>
-        <div class="md-subhead">Du {{mission.beginDate}} au {{mission.endDate}}</div>
+         <div class="md-title black">{{mission.title}}</div>
+         <div class="md-subhead">Du {{mission.beginDate}} au {{mission.endDate}}</div>
       </md-card-header>
-
       <md-card-content>
-        {{mission.description !== null ? mission.description : 'Aucune description disponible.'}}
+         {{mission.description !== null ? mission.description : 'Aucune description disponible.'}}
       </md-card-content>
-</md-card>
- </div>
+   </md-card>
+</div>
 </template>
 
 <script>

@@ -1,11 +1,11 @@
 <template>
-  <div class="mdl-typography--text-center mdl-cell--12-col">
-      <h2>Fitnet Vue</h2>
-      <br>
-      <button v-on:click="googleConnect" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-          Se connecter
-      </button>
-  </div>
+<div class="mdl-typography--text-center mdl-cell--12-col">
+   <h2>Fitnet Vue</h2>
+   <br>
+   <button v-on:click="googleConnect" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+   Se connecter
+   </button>
+</div>
 </template>
 
 <script>
