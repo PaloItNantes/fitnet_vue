@@ -1,19 +1,16 @@
 <template>
-<div>
-      <div class="content-grid mdl-grid">
-          <div class="mdl-cell mdl-card mdl-shadow--2dp" v-on:click="goToMission(mission)" v-for="mission in missions" :key="mission.lotId">
-            <div class="mdl-card__title">
-                <h4>
-                    <div class="mdl-card__title-text">{{mission.title}}</div>
-                    <div class="mdl-card__subtitle-text">Du {{mission.beginDate}} au {{mission.endDate}}</div>
-                </h4>
-            </div>
-            <div class="mdl-card__supporting-text">
-                {{mission.description !== null ? mission.description : 'Aucune description disponible.'}}
-            </div>
-        </div>
-  </div>
-  </div>
+ <div class="content">
+          <md-card class="pointer md-layout-item md-card" @click.native="goToMission(mission)" v-for="mission in missions" :key="mission.lotId">
+      <md-card-header>
+        <div class="md-title black">{{mission.title}}</div>
+        <div class="md-subhead">Du {{mission.beginDate}} au {{mission.endDate}}</div>
+      </md-card-header>
+
+      <md-card-content>
+        {{mission.description !== null ? mission.description : 'Aucune description disponible.'}}
+      </md-card-content>
+</md-card>
+ </div>
 </template>
 
 <script>
@@ -48,11 +45,15 @@ export default {
 </script>
 
 <style>
-    .mdl-card__title, .mdl-card__supporting-text{
-        padding: 0px 16px;
+    .md-card{
+        margin: 16px;
     }
 
-    .mdl-card {
+    .black{
+        color: black;
+    }
+
+    .pointer{
         cursor: pointer;
     }
 </style>

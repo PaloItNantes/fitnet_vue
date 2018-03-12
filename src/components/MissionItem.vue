@@ -1,38 +1,43 @@
 <template>
     <div v-if="mission">
         <h2 class="mdl-typography--text-left">{{mission.title}}</h2>
-        <div class="content-grid mdl-grid">
-            <div class="mdl-textfield js-textfield mdl-typography--text-left mdl-cell--6-col">
+        <div class="md-layout md-gutter">
+            <div class="md-layout-item md-size-50 md-xsmall-size-100">
                 <label><b>Client</b></label>
                 <span>{{client.name}}</span>
             </div>
-            <div class="mdl-textfield js-textfield mdl-typography--text-left mdl-cell--6-col">
+            <div class="md-layout-item md-size-50 md-xsmall-size-100">
                 <label><b>Description</b></label>
                 <span>{{mission.description}}</span>
             </div>
-            <div class="mdl-textfield js-textfield mdl-typography--text-left mdl-cell--6-col">
+            </div>
+            <div class="md-layout md-gutter">
+            <div class="md-layout-item md-size-50 md-xsmall-size-100">
                 <label><b>Date de début</b></label>
                 <span>{{mission.beginDate}}</span>
             </div>
-            <div class="mdl-textfield js-textfield mdl-typography--text-left mdl-cell--6-col">
+            <div class="md-layout-item md-size-50 md-xsmall-size-100">
                 <label><b>Date de fin</b></label>
                 <span>{{mission.endDate}}</span>
             </div>
-            <div class="mdl-textfield js-textfield mdl-typography--text-left mdl-cell--6-col">
+            </div>
+            <div class="md-layout md-gutter">
+            <div class="md-layout-item md-size-50 md-xsmall-size-100">
                 <label><b>Statut</b></label>
                 <span>{{statut}}</span>
             </div>
-            <div class="mdl-textfield js-textfield mdl-typography--text-left mdl-cell--6-col">
+            <div class="md-layout-item md-size-50 md-xsmall-size-100">
                 <label><b>Facturation</b></label>
                 <span>{{facturation}}</span>
             </div>
-            <div class="mdl-typography--text-right mdl-cell--12-col">
-                <button v-on:click="sePositionner" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+            </div>
+            <div class="md-layout md-gutter md-alignment-right-center">
+                <md-button v-on:click="sePositionner" class="md-primary">
                     Se positionner
-                </button>
+                </md-button>
+              </div>
             </div>
         </div>
-    </div>
 </template>
 
 <script>
@@ -95,7 +100,11 @@ label:after {
 }
 
 h2{
-    margin: 0px 10px;
+    margin-left: 10px;
+}
 
+.md-layout-item {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 </style>

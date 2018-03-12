@@ -1,62 +1,107 @@
 <template>
-  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-    <header class="mdl-layout__header">
-      <div class="mdl-layout__header-row">
-        <span class="mdl-layout-title">Fitnet Vue</span>
-      </div>
-    </header>
-    <div class="mdl-layout__drawer">
-      <span class="mdl-layout-title">Fitnet Vue</span>
-      <nav class="mdl-navigation">
-        <router-link class="mdl-navigation__link" to="/" @click.native="hideMenu">Accueil</router-link>
-        <router-link class="mdl-navigation__link" to="mission_list" @click.native="hideMenu">Mission</router-link>
-        <!-- <router-link class="mdl-navigation__link" to="mission" @click.native="hideMenu">Missions</router-link> -->
-      </nav>
-    </div>
-    <main class="mdl-layout__content">
-      <div class="page-content">
-        <router-view></router-view>
-      </div>
-    </main>
+  <div>
+    <md-app md-waterfall md-mode="fixed">
+    <md-app-toolbar class="md-primary">
+      <md-button class="md-icon-button" @click="showNavigation = true" v-if="getCurrentUser()">
+        <md-icon>menu</md-icon>
+      </md-button>
+      <span class="md-title white">Fitnet Vue</span>
+    </md-app-toolbar>
+
+    <md-app-drawer :md-active.sync="showNavigation" v-if="getCurrentUser()">
+      <md-app-toolbar class="md-primary user" md-elevation="0">
+        <md-avatar>
+        <img v-bind:src="getCurrentUser().photoURL">
+        </md-avatar>
+        <span>{{getCurrentUser().displayName}}</span>
+      </md-app-toolbar>
+
+      <md-list>
+        <md-list-item>
+          <span class="md-list-item-text" v-on:click="goToMissions" @click="showNavigation = false">Accueil</span>
+        </md-list-item>
+        <md-list-item>
+          <span class="md-list-item-text" v-on:click="logout" @click="showNavigation = false">Se déconnecter</span>
+        </md-list-item>
+        </md-list>
+    </md-app-drawer>
+    <md-app-content>
+      <router-view></router-view>
+    </md-app-content>
+    </md-app>
   </div>
 </template>
 
 <script>
-require('material-design-lite')
+import firebase from "firebase";
 export default {
-  name: 'app',
+  name: "app",
+  data() {
+    return {
+      currentUser: null,
+      showNavigation: false,
+      showSidepanel: false
+    };
+  },
   methods: {
-    hideMenu: function () {
-      document.getElementsByClassName('mdl-layout__drawer')[0].classList.remove('is-visible')
-      document.getElementsByClassName('mdl-layout__obfuscator')[0].classList.remove('is-visible')
+    logout: function() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          this.$router.replace("login");
+          document
+            .getElementsByClassName("mdl-layout__obfuscator")[0]
+            .classList.remove("is-visible");
+        });
+    },
+    goToMissions: function(){
+      this.$router.replace('mission_list');
+    },
+    getCurrentUser: function() {
+      return firebase.auth().currentUser;
     }
   }
-}
+};
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
-@import url('https://code.getmdl.io/1.2.1/material.blue-red.min.css');
-body {
-  margin: 0;
+.md-app {
+  height: 100vh;
 }
 
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+a {
+  cursor: pointer;
 }
 
-main {
-  margin-top: 20px;
+.md-drawer {
+  width: 230px;
+  max-width: calc(100vw - 125px);
+  background-color: white;
+  position: fixed;
 }
 
-header {
-  margin: 0;
-  height: 56px;
-  padding: 0 16px 0 24px;
-  background-color: #35495E;
-  color: #ffffff;
+.md-primary {
+  background-color: #2196f3;
+  color: white;
+}
+
+.user{
+  display: inherit;
+  height: 150px;
+  padding-top: 100px;
+}
+
+.md-icon-button,
+.md-title {
+  color: white;
+}
+
+.md-list-item-text {
+  cursor: pointer;
+}
+
+.white{
+  color:white;
 }
 </style>
