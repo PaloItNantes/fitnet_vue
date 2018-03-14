@@ -20,7 +20,7 @@ let router = new Router({
             redirect: '/login'
         },
         {
-            path: '/mission_list',
+            path: '/mission',
             name: 'mission_list',
             component: MissionList,
             meta: {
@@ -28,7 +28,7 @@ let router = new Router({
             }
         },
         {
-            path: '/mission_item',
+            path: '/mission/:id',
             name: 'mission_item',
             component: MissionItem,
             props: true,

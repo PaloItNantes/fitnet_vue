@@ -1,6 +1,6 @@
 <template>
 <div class="content">
-   <md-card class="pointer md-layout-item md-card" @click.native="goToMission(mission)" v-for="mission in missions" :key="mission.lotId">
+   <md-card class="pointer md-layout-item md-card" @click.native="goToMission(mission.lotId)" v-for="mission in missions" :key="mission.lotId">
       <md-card-header>
          <div class="md-title black">{{mission.title}}</div>
          <div class="md-subhead">Du {{mission.beginDate}} au {{mission.endDate}}</div>
@@ -30,11 +30,11 @@ export default {
         missionService.getMissions().then(response => this.missions = _.orderBy(response.data, ['lotId'], ['desc']))
     },
 
-    goToMission: function(mission){
+    goToMission: function(id){
         this.$router.push({
             name: 'mission_item',
             params: {
-                mission: mission
+                id: id
             }
         });
     }

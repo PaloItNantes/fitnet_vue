@@ -32,7 +32,7 @@
       </div>
    </div>
    <div class="md-layout md-gutter md-alignment-right-center">
-      <md-button v-on:click="sePositionner" class="md-primary">
+      <md-button v-on:click="sePositionner(mission.title)" class="md-primary">
          Se positionner
       </md-button>
    </div>
@@ -41,54 +41,63 @@
 
 <script>
 import clientService from "@/services/client.service";
+import missionService from "@/services/mission.service";
 import facturationService from "@/services/facturation.service";
 import statutService from "@/services/statut.service";
+import spreadsheetService from "@/services/spreadsheet.service";
+
 export default {
-  props: ["mission"],
+  props: ["id"],
   data() {
     return {
       client: {},
+      mission: {},
       statut: "",
       facturation: ""
     };
   },
   mounted() {
-    this.storeMission();
-    this.getClient();
-    this.getStatut();
-    this.getFacturation();
+    this.getMission();
+    //this.storeMission();
+    ///this.getClient();
+    //this.getStatut();
+    //this.getFacturation();
   },
   methods: {
-    getClient: function() {
+    getClient: function(clientId) {
       clientService
-        .getClient(this.mission.customerId)
+        .getClient(clientId)
         .then(response => (this.client = response.data));
     },
-    storeMission: function() {
-      if (this.mission !== undefined && this.mission !== null) {
-        localStorage.setItem("mission", JSON.stringify(this.mission));
-      } else {
-        this.mission = JSON.parse(localStorage.getItem("mission"));
-      }
+    getMission: function() {
+      missionService.getMission(this.id).then(response => {
+        this.mission = response.data;
+        this.getClient(this.mission.customerId);
+        this.getStatut(this.mission.status);
+        this.getFacturation(this.mission.billingMode);
+      });
     },
-    getStatut: function() {
-      statutService.getStatuts().then(response => {
-        var statut_mission = this.mission.status;
-        var statut = _.find(response.data, { statusCode: statut_mission });
+    getStatut: function(missionStatus) {
+      statutService.getStatuts(missionStatus).then(response => {
+        var statut = _.find(response.data, { statusCode: missionStatus });
         this.statut = statut.nameFR;
       });
     },
-    getFacturation: function() {
+    getFacturation: function(billingMode) {
       facturationService.getFacturations().then(response => {
-        var type_facturation = this.mission.billingMode;
         var facturation = _.find(response.data, {
-          billingModeCode: type_facturation
+          billingModeCode: billingMode
         });
         this.facturation = facturation.nameFR;
       });
     },
-    sePositionner: function() {
-      console.log("OK");
+    sePositionner: function(mission) {
+      spreadsheetService
+        .savePositionnement(mission)
+        .then(
+          data => console.log("ehfiuzeguif"),
+          err => console.log(err.status)
+        );
     }
   }
 };

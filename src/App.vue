@@ -54,7 +54,7 @@ export default {
         });
     },
     goToMissions: function(){
-      this.$router.replace('mission_list');
+      this.$router.push({name : 'mission_list'});
     },
     getCurrentUser: function() {
       return firebase.auth().currentUser;
