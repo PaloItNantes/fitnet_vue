@@ -5,7 +5,7 @@ export default {
         return axios.get('api/FitnetManager/rest/billingMode', {
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
-                    "Authorization": "Basic ZmJhaWxsYXJnZWF1QHBhbG8taXQuY29tOnZoVDczOSFIRmU="
+                    "Authorization": "Basic " + process.env.FITNET_AUTHORIZATION
                 }
             })
             .then(response => {
@@ -13,7 +13,6 @@ export default {
             })
             .catch(e => {
                 console.log(e);
-                this.errors.push(e)
             })
     }
 }

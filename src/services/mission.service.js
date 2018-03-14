@@ -5,7 +5,7 @@ export default {
         return axios.get('api/FitnetManager/rest/contracts/1', {
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
-                    "Authorization": "Basic ZmJhaWxsYXJnZWF1QHBhbG8taXQuY29tOnZoVDczOSFIRmU="
+                    "Authorization": "Basic " + process.env.FITNET_AUTHORIZATION
                 }
             })
             .then(response => {
@@ -13,14 +13,13 @@ export default {
             })
             .catch(e => {
                 console.log(e);
-                this.errors.push(e)
             })
     },
     getMission: function(id) {
         return axios.get(`api/FitnetManager/rest/contracts/read/${id}`, {
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
-                    "Authorization": "Basic ZmJhaWxsYXJnZWF1QHBhbG8taXQuY29tOnZoVDczOSFIRmU="
+                    "Authorization": "Basic " + process.env.FITNET_AUTHORIZATION
                 }
             })
             .then(response => {
@@ -28,7 +27,6 @@ export default {
             })
             .catch(e => {
                 console.log(e);
-                this.errors.push(e)
             })
     }
 }

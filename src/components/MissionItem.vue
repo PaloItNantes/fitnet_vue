@@ -36,6 +36,9 @@
          Se positionner
       </md-button>
    </div>
+    <md-snackbar md-position="center" :md-duration=1000 :md-active.sync="showSnackbar" md-persistent>
+      <span>{{message}}</span>
+    </md-snackbar>
 </div>
 </template>
 
@@ -53,15 +56,13 @@ export default {
       client: {},
       mission: {},
       statut: "",
-      facturation: ""
+      facturation: "",
+      message: '',
+      showSnackbar: false
     };
   },
   mounted() {
     this.getMission();
-    //this.storeMission();
-    ///this.getClient();
-    //this.getStatut();
-    //this.getFacturation();
   },
   methods: {
     getClient: function(clientId) {
@@ -79,13 +80,13 @@ export default {
     },
     getStatut: function(missionStatus) {
       statutService.getStatuts(missionStatus).then(response => {
-        var statut = _.find(response.data, { statusCode: missionStatus });
+        let statut = _.find(response.data, { statusCode: missionStatus });
         this.statut = statut.nameFR;
       });
     },
     getFacturation: function(billingMode) {
       facturationService.getFacturations().then(response => {
-        var facturation = _.find(response.data, {
+        let facturation = _.find(response.data, {
           billingModeCode: billingMode
         });
         this.facturation = facturation.nameFR;
@@ -93,11 +94,18 @@ export default {
     },
     sePositionner: function(mission) {
       spreadsheetService
-        .savePositionnement(mission)
-        .then(
-          data => console.log("ehfiuzeguif"),
-          err => console.log(err.status)
-        );
+        .savePositionnement(mission).then((data) => {
+          //SUCCESS
+          this.showSnackbar = true;
+          this.message = data;
+          setTimeout(() => {
+            this.$router.push({name : 'mission_list'});
+          }, 1000);
+        }, () => {
+          //ERROR
+          this.showSnackbar = true;
+          this.message = 'Erreur lors du positionnement du collaborateur';
+        });
     }
   }
 };

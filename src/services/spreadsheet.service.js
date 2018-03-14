@@ -1,22 +1,18 @@
 import firebase from "firebase";
+import axios from 'axios';
 
 export default {
     savePositionnement: function(mission) {
-        let script_url = "https://script.google.com/a/palo-it.com/macros/s/AKfycbz8_ZfTsW_mq7vdpGrWuwSyEWuVjOuM3hWYwXx6iQO8cS6cRZoq/exec";
+        var script_url = process.env.HTTP_GOOGLE_SCRIPT + "?callback=?";
 
-        var url = script_url + "?nom=" + firebase.auth().currentUser.displayName + "&mission=" + mission;
-        var callback = {};
-
-        return jQuery.ajax({
-            crossDomain: true,
-            crossOrigin: true,
-            url: url,
-            method: "GET",
-            dataType: "jsonp",
-            data: {
-                'nom': firebase.auth().currentUser.displayName,
-                'mission': mission
-            }
-        });
+        return $.getJSON(script_url, {
+                nom: firebase.auth().currentUser.displayName,
+                mission: mission
+            },
+            function(data, status, xhr) {
+                return xhr.status;
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+            return jqXHR.status;
+        })
     }
 }
