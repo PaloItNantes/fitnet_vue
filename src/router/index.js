@@ -16,7 +16,6 @@ let router = new Router({
         },
         {
             path: '/',
-            name: 'accueil',
             redirect: '/login'
         },
         {
@@ -49,7 +48,7 @@ router.beforeEach((to, from, next) => {
     let requiresAuth = to.matched.some(record => record.meta.requiresAuth);
 
     if (requiresAuth && !currentUser) next('login');
-    else if (!requiresAuth && currentUser) next('mission_list');
+    else if (!requiresAuth && currentUser) next('mission');
     else next();
 })
 
