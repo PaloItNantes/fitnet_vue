@@ -84,6 +84,16 @@ a {
   color: white;
 }
 
+.md-success {
+  background-color: #28a745;
+  color: white;
+}
+
+.md-warning {
+  background-color: #ffc107;
+  color: white;
+}
+
 .user{
   display: inherit;
   height: 150px;

@@ -31,12 +31,12 @@
          <span>{{facturation}}</span>
       </div>
    </div>
-   <div class="md-layout md-gutter md-alignment-right-center">
+   <div class="md-layout">
       <md-button v-on:click="sePositionner(mission.title)" class="md-primary">
          Se positionner
       </md-button>
    </div>
-    <md-snackbar md-position="center" :md-duration=1000 :md-active.sync="showSnackbar" md-persistent>
+    <md-snackbar md-position="center" v-bind:class="[position_statut === 'CREATED' ? 'md-success' : 'md-warning']" :md-duration=2000 :md-active.sync="showSnackbar" md-persistent>
       <span>{{message}}</span>
     </md-snackbar>
 </div>
@@ -58,6 +58,7 @@ export default {
       statut: "",
       facturation: "",
       message: '',
+      position_statut: '',
       showSnackbar: false
     };
   },
@@ -97,10 +98,15 @@ export default {
         .savePositionnement(mission).then((data) => {
           //SUCCESS
           this.showSnackbar = true;
-          this.message = data;
-          setTimeout(() => {
-            this.$router.push({name : 'mission_list'});
-          }, 1000);
+          this.message = data.message;
+          this.position_statut = data.statut;
+          console.log(this.position_statut);
+
+          if(this.position_statut === "CREATED"){
+            setTimeout(() => {
+              this.$router.push({name : 'mission_list'});
+            }, 1000);
+          }
         }, () => {
           //ERROR
           this.showSnackbar = true;
