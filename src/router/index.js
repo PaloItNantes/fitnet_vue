@@ -19,8 +19,13 @@ let router = new Router({
             redirect: '/login'
         },
         {
+            path: '/login',
+            name: 'Login',
+            component: Login
+        },
+        {
             path: '/mission',
-            name: 'mission_list',
+            name: 'MissionList',
             component: MissionList,
             meta: {
                 requiresAuth: true
@@ -28,17 +33,12 @@ let router = new Router({
         },
         {
             path: '/mission/:id',
-            name: 'mission_item',
+            name: 'MissionItem',
             component: MissionItem,
             props: true,
             meta: {
                 requiresAuth: true
             }
-        },
-        {
-            path: '/login',
-            name: 'login',
-            component: Login
         }
     ]
 })

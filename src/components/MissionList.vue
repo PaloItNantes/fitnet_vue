@@ -31,8 +31,8 @@ export default {
     },
 
     goToMission: function(id){
-        this.$router.push({
-            name: 'mission_item',
+        this.$router.replace({
+            name: 'MissionItem',
             params: {
                 id: id
             }

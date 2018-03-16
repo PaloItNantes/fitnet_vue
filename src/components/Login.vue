@@ -23,13 +23,10 @@ export default {
         'hd': 'palo-it.com'
       });
       firebase.auth().signInWithRedirect(provider).then(function(result) {
-        document.getElementsByClassName('mdl-layout__drawer')[0].classList.add('is-visible')
+
       }, function(err){
         alert(err.message);
       });
-    },
-    goTo: function(){
-      this.$router.push('mission_list');
     }
   }
 };

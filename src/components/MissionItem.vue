@@ -104,7 +104,7 @@ export default {
 
           if(this.position_statut === "CREATED"){
             setTimeout(() => {
-              this.$router.push({name : 'mission_list'});
+              this.$router.replace({name:'MissionList'})
             }, 1000);
           }
         }, () => {
