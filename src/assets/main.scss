@@ -1,0 +1,56 @@
+.md-app {
+    height: 100vh;
+}
+
+a {
+    cursor: pointer;
+}
+
+.md-drawer {
+    width: 230px;
+    max-width: calc(100vw - 125px);
+    background-color: white;
+    position: fixed;
+}
+
+.success {
+    background-color: #28a745;
+    color: white;
+}
+
+.warning {
+    background-color: #ffc107;
+    color: white;
+}
+
+.user {
+    display: inherit;
+    height: 150px;
+    padding-top: 100px;
+}
+
+.md-list-item-text {
+    cursor: pointer;
+}
+
+label:after {
+    content: "\A";
+    white-space: pre;
+}
+
+h2 {
+    margin-left: 10px;
+}
+
+.md-layout-item {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.md-card {
+    margin: 16px;
+}
+
+.pointer {
+    cursor: pointer;
+}

@@ -1,7 +1,7 @@
 <template>
 <div class="mdl-typography--text-center mdl-cell--12-col">
    <div class="md-layout md-gutter md-alignment-center">
-      <md-button v-on:click="googleConnect" class="md-primary">
+      <md-button v-on:click="googleConnect" class="md-raised md-primary">
          Se connecter
       </md-button>
    </div>

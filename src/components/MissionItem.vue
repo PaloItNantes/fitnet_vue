@@ -32,7 +32,7 @@
       </div>
    </div>
    <div class="md-layout">
-      <md-button v-on:click="sePositionner(mission.title)" class="md-primary">
+      <md-button v-on:click="sePositionner(mission.title)" class="md-raised md-primary">
          Se positionner
       </md-button>
    </div>

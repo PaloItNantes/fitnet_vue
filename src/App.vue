@@ -47,14 +47,11 @@ export default {
         .auth()
         .signOut()
         .then(() => {
-          this.$router.replace("login");
-          document
-            .getElementsByClassName("mdl-layout__obfuscator")[0]
-            .classList.remove("is-visible");
+          this.$router.push({name :"Login"});
         });
     },
     goToMissions: function(){
-      this.$router.push({name : 'mission_list'});
+      this.$router.push({name : 'MissionList'});
     },
     getCurrentUser: function() {
       return firebase.auth().currentUser;
@@ -63,53 +60,13 @@ export default {
 };
 </script>
 
-<style>
-.md-app {
-  height: 100vh;
-}
+<style lang="scss">
+@import "~vue-material/dist/theme/engine"; // Import the theme engine
 
-a {
-  cursor: pointer;
-}
+@include md-register-theme("default", (
+  primary: md-get-palette-color(blue, A400), // The primary color of your application
+  accent: md-get-palette-color(red, A200) // The accent or secondary color
+));
 
-.md-drawer {
-  width: 230px;
-  max-width: calc(100vw - 125px);
-  background-color: white;
-  position: fixed;
-}
-
-.md-primary {
-  background-color: #2196f3;
-  color: white;
-}
-
-.md-success {
-  background-color: #28a745;
-  color: white;
-}
-
-.md-warning {
-  background-color: #ffc107;
-  color: white;
-}
-
-.user{
-  display: inherit;
-  height: 150px;
-  padding-top: 100px;
-}
-
-.md-icon-button,
-.md-title {
-  color: white;
-}
-
-.md-list-item-text {
-  cursor: pointer;
-}
-
-.white{
-  color:white;
-}
+@import "~vue-material/dist/theme/all"; // Apply the theme
 </style>

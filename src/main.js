@@ -7,6 +7,7 @@ import VueResource from 'vue-resource'
 import firebase from 'firebase'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
+import './assets/main.scss'
 
 Vue.use(VueMaterial)
 Vue.use(VueResource);
