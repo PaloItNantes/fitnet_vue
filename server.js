@@ -1,9 +1,19 @@
-//Server.js, don't forget to add express & ejs to packages
 const express = require('express')
+const router = express.Router()
+var httpProxy = require('http-proxy');
+var proxy = require('http-proxy-middleware');
+
 
 const app = express()
-const port = process.env.PORT || 3003
-const router = express.Router()
+var port = 3000;
+
+app.use('/fitnet', proxy({
+    target: 'https://evaluation.fitnetmanager.com',
+    changeOrigin: true,
+    pathRewrite: {
+        '^/fitnet': ''
+    }
+}));
 
 app.use(express.static(`${__dirname}/dist`)) // set the static files location for the static html
 
@@ -17,4 +27,5 @@ router.get('/*', (req, res, next) => {
 app.use('/', router)
 
 app.listen(port)
+
 console.log('App running on port', port)

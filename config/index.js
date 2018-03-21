@@ -30,11 +30,11 @@ module.exports = {
         assetsSubDirectory: 'static',
         assetsPublicPath: '/',
         proxyTable: {
-            '/api': {
+            '/fitnet': {
                 target: 'https://evaluation.fitnetmanager.com',
                 changeOrigin: true,
                 pathRewrite: {
-                    '^/api': ''
+                    '^/fitnet': ''
                 }
             }
         },
