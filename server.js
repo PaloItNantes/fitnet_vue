@@ -1,7 +1,7 @@
 const express = require('express')
 var httpProxy = require('http-proxy');
 var proxy = require('http-proxy-middleware');
-var http = require('http');
+// var http = require('http');
 var https = require('https');
 var fs = require('fs');
 const router = express.Router()
@@ -20,10 +20,10 @@ var httpsOptions = {
 };
 
 //Redirection des requêtes http vers https
-httpApp.set('port', 80);
-httpApp.get("*", function(req, res, next) {
-    res.redirect("https://" + req.headers.host + "/" + req.path);
-});
+// httpApp.set('port', 80);
+// httpApp.get("*", function(req, res, next) {
+//     res.redirect("https://" + req.headers.host + "/" + req.path);
+// });
 
 //Utilisation d'un proxy pour la récupération des données
 app.use('/fitnet', proxy({
@@ -47,5 +47,5 @@ router.get('/*', (req, res, next) => {
 })
 app.use('/', router)
 
-http.createServer(httpApp).listen(httpApp.get('port'));
+//http.createServer(httpApp).listen(httpApp.get('port'));
 https.createServer(httpsOptions, app).listen(app.get('port'));
