@@ -61,12 +61,12 @@ export default {
 </script>
 
 <style lang="scss">
-@import "~vue-material/dist/theme/engine"; // Import the theme engine
+// @import "~vue-material/dist/theme/engine"; // Import the theme engine
 
-@include md-register-theme("default", (
-  primary: md-get-palette-color(blue, A400), // The primary color of your application
-  accent: md-get-palette-color(red, A200) // The accent or secondary color
-));
+// @include md-register-theme("default", (
+//   primary: #3fffbe, // The primary color of your brand
+//   accent: #1a11e8 // The secondary color of your brand
+// ));
 
-@import "~vue-material/dist/theme/all"; // Apply the theme
+// @import "~vue-material/dist/theme/all"; // Apply the theme
 </style>

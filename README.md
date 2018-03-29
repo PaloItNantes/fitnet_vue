@@ -19,3 +19,9 @@ npm run build --report
 ```
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+## Vérification du fonctionnement du service worker en localhost
+
+Avec Google Chrome dans la barre de recherche : chrome://flags/#allow-insecure-localhost
+
+Le https sera toujours barré en rouge, mais le service worker fonctionnera correctement

@@ -1,29 +1,23 @@
 const express = require('express')
 var httpProxy = require('http-proxy');
 var proxy = require('http-proxy-middleware');
-// var http = require('http');
 var https = require('https');
 var fs = require('fs');
-const router = express.Router()
+const router = express.Router();
 
 //Création des deux serveurs express
-const app = express()
-var httpApp = express();
+const app = express();
 
-//Configuration https
-var key = fs.readFileSync('fitnet.key');
-var cert = fs.readFileSync('fitnet.crt');
-
+//A commenter lorsque l'on veut tester en local
 var httpsOptions = {
-    key: key,
-    cert: cert
-};
+    //PROD
+    key: fs.readFileSync('/root/.ssh/paloUbuntu-key.pem'),
+    cert: fs.readFileSync('/root/.ssh/paloUbuntu-crt.pem')
 
-//Redirection des requêtes http vers https
-// httpApp.set('port', 80);
-// httpApp.get("*", function(req, res, next) {
-//     res.redirect("https://" + req.headers.host + "/" + req.path);
-// });
+    //Test
+    // key: fs.readFileSync('key.pem'),
+    // cert: fs.readFileSync('cert.pem')
+};
 
 //Utilisation d'un proxy pour la récupération des données
 app.use('/fitnet', proxy({
@@ -41,11 +35,9 @@ app.engine('.html', require('ejs').renderFile)
 app.set('views', `${__dirname}/dist`)
 
 app.set('port', 443);
-
 router.get('/*', (req, res, next) => {
     res.sendFile(`${__dirname}/dist/index.html`)
 })
 app.use('/', router)
 
-//http.createServer(httpApp).listen(httpApp.get('port'));
 https.createServer(httpsOptions, app).listen(app.get('port'));
