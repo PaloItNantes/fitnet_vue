@@ -11,8 +11,8 @@ const app = express();
 //A commenter lorsque l'on veut tester en local
 var httpsOptions = {
     //PROD
-    key: fs.readFileSync('/root/.ssh/paloUbuntu-key.pem'),
-    cert: fs.readFileSync('/root/.ssh/paloUbuntu-crt.pem')
+    key: fs.readFileSync('/usr/src/app/ssh/paloUbuntu-key.pem'),
+    cert: fs.readFileSync('/usr/src/app/ssh/paloUbuntu-cert.pem')
 
     //Test
     // key: fs.readFileSync('key.pem'),
@@ -21,7 +21,7 @@ var httpsOptions = {
 
 //Utilisation d'un proxy pour la récupération des données
 app.use('/fitnet', proxy({
-    target: 'https://evaluation.fitnetmanager.com',
+    target: 'https://palo-it.fitnetmanager.com',
     changeOrigin: true,
     pathRewrite: {
         '^/fitnet': ''
